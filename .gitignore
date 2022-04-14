@@ -1,0 +1,9 @@
+
+*.xml
+*.jar
+*.CTL
+*.properties
+*.LOG
+*.DBF
+*.TMP
+*.iml
