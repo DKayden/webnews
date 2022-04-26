@@ -16,10 +16,8 @@
     <description>webnews</description>
     <properties>
         <java.version>11</java.version>
-        <webjars-locator.version>0.30</webjars-locator.version>
         <lombok.version>1.18.24</lombok.version>
-        <liquibase-core.version>3.8.8</liquibase-core.version>
-        <h2.version>1.4.200</h2.version>
+        <liquibase-core.version>4.9.1</liquibase-core.version>
     </properties>
     <dependencies>
         <dependency>
@@ -38,7 +36,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>3.8.8</version>
+            <version>4.9.1</version>
         </dependency>
 
         <dependency>
@@ -82,11 +80,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
         </dependency>
     </dependencies>
 
