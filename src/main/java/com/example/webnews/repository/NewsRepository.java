@@ -12,10 +12,11 @@ import java.util.List;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Integer> {
-    @Query("select e from News e")
-    Page<News> findNews(Pageable pageable);
 
     Page<News> findAll(Pageable pageable);
 
-    Page<News> findByTitleContaining(String title, Pageable pageable);
+    @Query("select n from News n where n.title like %?1%"
+            +"or n.author like %?1%")
+    public List<News> searchByTitle(String keyword);
+
 }

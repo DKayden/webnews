@@ -2,51 +2,48 @@ package com.example.webnews.service;
 
 import com.example.webnews.entity.News;
 import com.example.webnews.entity.dao.NewsDAO;
+import com.example.webnews.entity.paging.Paged;
+import com.example.webnews.entity.paging.Paging;
 import com.example.webnews.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class NewsService {
 
-    @Autowired
-    private NewsRepository newsRepository;
+    private final NewsDAO newsDAO;
+
+    private final NewsRepository newsRepository;
 
     @Autowired
-    private NewsDAO newsDAO;
+    public NewsService(NewsDAO newsDAO, NewsRepository newsRepository) {
+        this.newsDAO = newsDAO;
+        this.newsRepository = newsRepository;
+    }
 
-    final private List<News> newsList = newsDAO.newsList();
+    public Paged<News> getPage(int pageNumber, int size) {
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
+        Page<News> newsPage = newsDAO.findAll(request);
+        return new Paged<>(newsPage, Paging.of(newsPage.getTotalPages(), pageNumber, size));
+    }
+//    public Paged<News> listAll(int pageNumber, int size, String keyword) {
+//        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
+//        if (keyword != null) {
+//            Page<News> newsPage = (Page<News>) newsRepository.searchByTitle(keyword);
+//        }
+//        Page<News> newsPage = newsDAO.findAll(request);
+//        return new Paged<>(newsPage, Paging.of(newsPage.getTotalPages(), pageNumber, size));
+//    }
 
-    public Page<News> findPaginated(Pageable pageable) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<News> list;
-
-        if (newsList.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, newsList.size());
-            list = newsList.subList(startItem, toIndex);
+    public List<News> listAll(String keyword) {
+        if (keyword != null) {
+            return newsRepository.searchByTitle(keyword);
         }
-        Page<News> newsPage
-                = new PageImpl<News>(list, PageRequest.of(currentPage, pageSize), newsList.size());
-
-        return newsPage;
-    }
-
-    public List<News> findAll() {
         return newsRepository.findAll();
-    }
-    public Page<News> findPage(int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber -1,5);
-        return newsRepository.findAll(pageable);
     }
 }

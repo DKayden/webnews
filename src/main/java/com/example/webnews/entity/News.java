@@ -6,16 +6,18 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
-@Table(name = "news")
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Valid
 @Builder
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class News implements Serializable {
