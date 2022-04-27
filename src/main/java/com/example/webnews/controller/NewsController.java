@@ -37,9 +37,7 @@ public class NewsController {
     public String search (@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
                           @RequestParam(value = "size",required = false,defaultValue = "3") int size,
                           @Param("keyword") String keyword, Model model) {
-        List<News> newsList = newsService.listAll(keyword);
-        model.addAttribute("newsList", newsList);
-        model.addAttribute("keyword",keyword);
+        model.addAttribute("newsList", newsService.listAll(pageNumber,size,keyword));
 
         return "index";
     }

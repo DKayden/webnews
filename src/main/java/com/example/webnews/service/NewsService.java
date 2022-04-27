@@ -31,19 +31,20 @@ public class NewsService {
         Page<News> newsPage = newsDAO.findAll(request);
         return new Paged<>(newsPage, Paging.of(newsPage.getTotalPages(), pageNumber, size));
     }
-//    public Paged<News> listAll(int pageNumber, int size, String keyword) {
-//        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
-//        if (keyword != null) {
-//            Page<News> newsPage = (Page<News>) newsRepository.searchByTitle(keyword);
-//        }
-//        Page<News> newsPage = newsDAO.findAll(request);
-//        return new Paged<>(newsPage, Paging.of(newsPage.getTotalPages(), pageNumber, size));
-//    }
-
-    public List<News> listAll(String keyword) {
+    public Paged<News> listAll(int pageNumber, int size, String keyword) {
+        Page<News> newsPage = null;
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         if (keyword != null) {
-            return newsRepository.searchByTitle(keyword);
+            newsPage = newsRepository.searchByTitle(keyword,request);
+            return new Paged<>(newsPage,Paging.of(newsPage.getTotalPages(), pageNumber, size));
         }
-        return newsRepository.findAll();
+        return new Paged<>(null, Paging.of(newsPage.getTotalPages(), pageNumber, size));
     }
+
+//    public List<News> listAll(String keyword) {
+//        if (keyword != null) {
+//            return newsRepository.searchByTitle(keyword);
+//        }
+//        return newsRepository.findAll();
+//    }
 }
