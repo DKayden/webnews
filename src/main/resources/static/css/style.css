@@ -10,7 +10,7 @@ body {
  padding: 0; margin: 0; font: 0.7em Arial, sans-serif; line-height: 1.5em;
 }
 
-a { color: #46574D; background: inherit; }
+a { color: #46574D; background: inherit;}
 a:hover { color: #647B6D; background: inherit;}
 
 h1 { font: bold 2em Arial, Sans-Serif; letter-spacing: -1px; padding: 16px 0 0 8px; margin: 0; }

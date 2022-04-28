@@ -11,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class NewsService {
 
@@ -41,10 +39,9 @@ public class NewsService {
         return new Paged<>(null, Paging.of(newsPage.getTotalPages(), pageNumber, size));
     }
 
-//    public List<News> listAll(String keyword) {
-//        if (keyword != null) {
-//            return newsRepository.searchByTitle(keyword);
-//        }
-//        return newsRepository.findAll();
-//    }
+    public Paged<News> eachNews(int pageNumber, int size, int id) {
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
+        Page<News> newsPage = newsRepository.getNewsById(id,request);
+        return new Paged<>(newsPage,Paging.of(newsPage.getTotalPages(),pageNumber,size));
+    }
 }

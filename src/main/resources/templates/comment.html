@@ -38,9 +38,9 @@
                 <form th:action="@{/search}">
                     <p>
                         Filter:
-                        <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required />
+                        <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required/>
                         &nbsp;
-                        <input type="submit" value="Search" />
+                        <input type="submit" value="Search"/>
                     </p>
                 </form>
                 <br/>
@@ -55,34 +55,35 @@
         </div>
         <div class="sd_left">
             <div class="text_padding">
-                <h1>MainNews</h1>
-                <div th:each="news:${newsList.page}">
-                    <a th:href="@{'/news-' + ${news.id}}" style="text-decoration: none;color: black;"><h2 th:text="${news.title}" style="margin-bottom: unset;"></h2></a>
-                    <span th:text="${news.content}">Content</span>
+                <h1>Comments</h1>
+                <div th:each="comments:${commentsList.page}">
+                    <span th:text="${comments.content}"></span><br/>
+                    <span><img th:src="@{/images/timeicon.gif}" alt="" th:text="${#dates.format(comments.timepost, 'HH:mm dd-MM-yyyy')}"/></span>
                 </div>
-                <br/>
-                <nav aria-label="Page navigation" class="paging">
-                    <ul class="pagination" th:if="${newsList.page.totalPages > 1}">
-                        <li class="page-item" th:classappend="${!newsList.paging.isPrevEnabled()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/?pageNumber=' + ${newsList.paging.pageNumber - 1}}"
-                               tabindex="-1">Previous</a>
-                        </li>
-                        <th:block th:each="item : ${newsList.paging.getItems()}">
-                            <li class="page-item" th:classappend="${item.index == newsList.paging.pageNumber? 'active' : ''}"
-                                th:if="${item.pageItemType.name() == 'PAGE'}">
-                                <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
-                                   th:text="${item.index}"></a>
-                            </li>
-                            <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
-                                <a class="page-link" href="#">...</a>
-                            </li>
-                        </th:block>
-                        <li class="page-item" th:classappend="${!newsList.paging.isNextEnabled()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/?pageNumber=' + ${newsList.paging.pageNumber + 1}}">Next</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
+            <br/>
+            <nav aria-label="Page navigation" class="paging">
+                <ul class="pagination" th:if="${commentsList.page.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!commentsList.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/?pageNumber=' + ${commentsList.paging.pageNumber - 1}}"
+                           tabindex="-1">Previous</a>
+                    </li>
+                    <th:block th:each="item : ${commentsList.paging.getItems()}">
+                        <li class="page-item"
+                            th:classappend="${item.index == commentsList.paging.pageNumber? 'active' : ''}"
+                            th:if="${item.pageItemType.name() == 'PAGE'}">
+                            <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
+                               th:text="${item.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${!commentsList.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/?pageNumber=' + ${commentsList.paging.pageNumber + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="footer" th:style="'background-image: url(/images/footer.jpg)'">
             <div class="padding"> Powered by <a href="http://snews.solucija.com"

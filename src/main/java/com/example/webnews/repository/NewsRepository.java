@@ -17,4 +17,7 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
             +"or n.author like %?1%")
     Page<News> searchByTitle(String keyword, Pageable pageable);
 
+    @Query("select n from News n where n.id = ?1")
+    Page<News> getNewsById(int id,Pageable pageable);
+
 }
