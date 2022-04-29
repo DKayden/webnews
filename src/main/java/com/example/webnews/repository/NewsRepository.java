@@ -11,13 +11,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Integer> {
 
+
     Page<News> findAll(Pageable pageable);
 
-    @Query("select n from News n where n.title like %?1%"
-            +"or n.author like %?1%")
+    @Query("select n from News n where n.title like %?1%")
     Page<News> searchByTitle(String keyword, Pageable pageable);
 
+    @Query(value = "select count(*) from (select * from News where title like %?1%)", nativeQuery = true)
+    long getNumberNewsByTitle(String keyword);
+
     @Query("select n from News n where n.id = ?1")
-    Page<News> getNewsById(int id,Pageable pageable);
+    Page<News> getNewsById(int id, Pageable pageable);
 
 }

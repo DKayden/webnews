@@ -1,5 +1,6 @@
 package com.example.webnews.controller;
 
+import com.example.webnews.repository.NewsRepository;
 import com.example.webnews.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -17,10 +18,14 @@ public class NewsController {
 
     private final NewsService newsService;
 
+    private final NewsRepository newsRepository;
+
     @Autowired
-    public NewsController(NewsService newsService) {
+    public NewsController(NewsService newsService, NewsRepository newsRepository) {
         this.newsService = newsService;
+        this.newsRepository = newsRepository;
     }
+
 
     @GetMapping
     @RequestMapping("/")
@@ -34,16 +39,19 @@ public class NewsController {
     @RequestMapping("/search")
     public String search (@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
                           @RequestParam(value = "size",required = false,defaultValue = "3") int size,
-                          @Param("keyword") String keyword, Model model) {
-        model.addAttribute("newsList", newsService.listAll(pageNumber,size,keyword));
-
+                          @Param("keyword") String keyword,
+                          Model model) {
+            model.addAttribute("newsList", newsService.listAll(pageNumber, size, keyword));
+            model.addAttribute("searchMessage",newsService.getNumberNewsByTitle(keyword));
         return "searchResult";
     }
+
     @GetMapping
     @RequestMapping("/news-{id}")
     public String getOneNews(@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber,
                               @RequestParam(value = "size",required = false,defaultValue = "1") int size,
-                              @PathVariable("id") int id,Model model) {
+                              @PathVariable("id") int id,
+                             Model model) {
         model.addAttribute("newsList",newsService.eachNews(pageNumber,size,id));
 
         return "eachNews";

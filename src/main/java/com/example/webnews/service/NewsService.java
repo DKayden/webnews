@@ -16,7 +16,9 @@ public class NewsService {
 
     private final NewsDAO newsDAO;
 
+
     private final NewsRepository newsRepository;
+
 
     @Autowired
     public NewsService(NewsDAO newsDAO, NewsRepository newsRepository) {
@@ -24,11 +26,19 @@ public class NewsService {
         this.newsRepository = newsRepository;
     }
 
+
     public Paged<News> getPage(int pageNumber, int size) {
         PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<News> newsPage = newsDAO.findAll(request);
         return new Paged<>(newsPage, Paging.of(newsPage.getTotalPages(), pageNumber, size));
     }
+
+
+    public long getNumberNewsByTitle(String keyword) {
+        return newsRepository.getNumberNewsByTitle(keyword);
+    }
+
+
     public Paged<News> listAll(int pageNumber, int size, String keyword) {
         Page<News> newsPage = null;
         PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));

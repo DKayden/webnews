@@ -56,12 +56,13 @@
         <div class="sd_left">
             <div class="text_padding">
                 <h1>Result Search</h1>
+                <div th:utext="|@{'Have '+ ${searchMessage} + ' News'}|"
+                     style="color:green;font-style:italic;">
+                    ...
+                </div>
                 <div th:each="news:${newsList.page}">
                     <a th:href="@{'/news-' + ${news.id}}" style="text-decoration: none;color: black;"><h2 th:text="${news.title}" style="margin-bottom: unset;"></h2></a>
                     <span th:text="${news.content}">Content</span>
-                    <p class="date"><img th:src="@{/images/comment.gif}" alt=""/> <a class="date"
-                                                                                     th:href="@{'/news-' + ${news.id}}">Comments</a>
-                        <img th:src="@{/images/timeicon.gif}" alt=""/></p>
                 </div>
                 <nav aria-label="Page navigation" class="paging">
                     <ul class="pagination" th:if="${newsList.page.totalPages > 1}">
