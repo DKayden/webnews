@@ -57,8 +57,9 @@
             <div class="text_padding">
                 <h1>Comments</h1>
                 <div th:each="comments:${commentsList.page}">
+                    <span th:text="${comments.user_name}"></span><br/>
                     <span th:text="${comments.content}"></span><br/>
-                    <span><img th:src="@{/images/timeicon.gif}" alt="" th:text="${#dates.format(comments.timepost, 'HH:mm dd-MM-yyyy')}"/></span>
+                    <span><img th:src="@{/images/timeicon.gif}" alt="" th:text="${#dates.format(comments.timepost, 'HH:mm dd-MM-yyyy')}"/></span><br/>
                 </div>
             </div>
             <br/>

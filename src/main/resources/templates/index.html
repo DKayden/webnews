@@ -38,9 +38,9 @@
                 <form th:action="@{/search}">
                     <p>
                         Filter:
-                        <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required />
+                        <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required/>
                         &nbsp;
-                        <input type="submit" value="Search" />
+                        <input type="submit" value="Search"/>
                     </p>
                 </form>
                 <br/>
@@ -57,7 +57,8 @@
             <div class="text_padding">
                 <h1>MainNews</h1>
                 <div th:each="news:${newsList.page}">
-                    <a th:href="@{'/news-' + ${news.id}}" style="text-decoration: none;color: black;"><h2 th:text="${news.title}" style="margin-bottom: unset;"></h2></a>
+                    <a th:href="@{'/news-' + ${news.id}}" style="text-decoration: none;color: black;"><h2
+                            th:text="${news.title}" style="margin-bottom: unset;"></h2></a>
                     <span th:text="${news.content}">Content</span>
                 </div>
                 <br/>
@@ -68,7 +69,8 @@
                                tabindex="-1">Previous</a>
                         </li>
                         <th:block th:each="item : ${newsList.paging.getItems()}">
-                            <li class="page-item" th:classappend="${item.index == newsList.paging.pageNumber? 'active' : ''}"
+                            <li class="page-item"
+                                th:classappend="${item.index == newsList.paging.pageNumber? 'active' : ''}"
                                 th:if="${item.pageItemType.name() == 'PAGE'}">
                                 <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
                                    th:text="${item.index}"></a>
@@ -78,7 +80,8 @@
                             </li>
                         </th:block>
                         <li class="page-item" th:classappend="${!newsList.paging.isNextEnabled()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/?pageNumber=' + ${newsList.paging.pageNumber + 1}}">Next</a>
+                            <a class="page-link"
+                               th:href="@{'/?pageNumber=' + ${newsList.paging.pageNumber + 1}}">Next</a>
                         </li>
                     </ul>
                 </nav>

@@ -36,4 +36,7 @@ public class Comments implements Serializable {
 
     @JoinColumn(name = "newsid", referencedColumnName = "id")
     private int newsid;
+
+    @JoinColumn(name = "user_name")
+    private String user_name;
 }

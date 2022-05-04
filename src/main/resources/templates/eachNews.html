@@ -55,7 +55,7 @@
         </div>
         <div class="sd_left">
             <div class="text_padding">
-                <div th:each="news:${newsList.page}">
+                <div th:each="news:${eachNewsList.page}">
                     <h1 th:text="${news.title}"></h1><br/>
                     <h2 th:text="${news.author}"></h2>
                     <h3 th:text="${#dates.format(news.timeupdate,'HH:mm dd-MM-yyyy')}"></h3>

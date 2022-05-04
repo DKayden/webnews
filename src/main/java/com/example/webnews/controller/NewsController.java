@@ -29,30 +29,30 @@ public class NewsController {
 
     @GetMapping
     @RequestMapping("/")
-    public String paginate (@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-                       @RequestParam(value = "size", required = false, defaultValue = "3") int size, Model model) {
-        model.addAttribute("newsList",newsService.getPage(pageNumber,size));
+    public String paginate(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                           @RequestParam(value = "size", required = false, defaultValue = "3") int size, Model model) {
+        model.addAttribute("newsList", newsService.getPage(pageNumber, size));
         return "index";
     }
 
     @GetMapping
     @RequestMapping("/search")
-    public String search (@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-                          @RequestParam(value = "size",required = false,defaultValue = "3") int size,
-                          @Param("keyword") String keyword,
-                          Model model) {
-            model.addAttribute("newsList", newsService.listAll(pageNumber, size, keyword));
-            model.addAttribute("searchMessage",newsService.getNumberNewsByTitle(keyword));
+    public String search(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                         @RequestParam(value = "size", required = false, defaultValue = "3") int size,
+                         @Param("keyword") String keyword,
+                         Model model) {
+        model.addAttribute("newsListSearch", newsService.listAll(pageNumber, size, keyword));
+        model.addAttribute("searchMessage", newsService.getNumberNews(keyword));
         return "searchResult";
     }
 
     @GetMapping
     @RequestMapping("/news-{id}")
-    public String getOneNews(@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber,
-                              @RequestParam(value = "size",required = false,defaultValue = "1") int size,
-                              @PathVariable("id") int id,
+    public String getOneNews(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                             @RequestParam(value = "size", required = false, defaultValue = "1") int size,
+                             @PathVariable("id") int id,
                              Model model) {
-        model.addAttribute("newsList",newsService.eachNews(pageNumber,size,id));
+        model.addAttribute("eachNewsList", newsService.eachNews(pageNumber, size, id));
 
         return "eachNews";
     }
