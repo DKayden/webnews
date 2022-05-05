@@ -35,7 +35,7 @@
                 tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo.
                 Donec mattis, purus nec placerat bibendum, dui pede condimentum odio. <br/>
                 <h2>Search</h2>
-                <form th:action="@{/search}">
+                <form th:action="@{/search}" method="get">
                     <p>
                         Filter:
                         <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required />
@@ -67,14 +67,14 @@
                 <nav aria-label="Page navigation" class="paging">
                     <ul class="pagination" th:if="${newsListSearch.page.totalPages > 1}">
                         <li class="page-item" th:classappend="${!newsListSearch.paging.isPrevEnabled()? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{'/?pageNumber=' + ${newsListSearch.paging.pageNumber - 1}}"
+                            <a class="page-link" th:href="@{/search(keyword=${keyword} , pageNumber=${newsListSearch.paging.pageNumber - 1})}"
                                tabindex="-1">Previous</a>
                         </li>
                         <th:block th:each="item : ${newsListSearch.paging.getItems()}">
                             <li class="page-item"
                                 th:classappend="${item.index == newsListSearch.paging.pageNumber? 'active' : ''}"
                                 th:if="${item.pageItemType.name() == 'PAGE'}">
-                                <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
+                                <a class="page-link" th:href="@{/search(keyword=${keyword} , pageNumber=${item.index})}"
                                    th:text="${item.index}"></a>
                             </li>
                             <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
@@ -83,7 +83,7 @@
                         </th:block>
                         <li class="page-item" th:classappend="${!newsListSearch.paging.isNextEnabled()? 'disabled' : ''}">
                             <a class="page-link"
-                               th:href="@{'/?pageNumber=' + ${newsListSearch.paging.pageNumber + 1}}">Next</a>
+                               th:href="@{/search(keyword=${keyword} , pageNumber=${newsListSearch.paging.pageNumber + 1})}">Next</a>
                         </li>
                     </ul>
                 </nav>

@@ -18,22 +18,21 @@ public class NewsController {
 
     private final NewsService newsService;
 
-    private final NewsRepository newsRepository;
 
     @Autowired
-    public NewsController(NewsService newsService, NewsRepository newsRepository) {
+    public NewsController(NewsService newsService) {
         this.newsService = newsService;
-        this.newsRepository = newsRepository;
     }
 
 
     @GetMapping
     @RequestMapping("/")
-    public String paginate(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+    public String paginateIndex(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
                            @RequestParam(value = "size", required = false, defaultValue = "3") int size, Model model) {
         model.addAttribute("newsList", newsService.getPage(pageNumber, size));
         return "index";
     }
+
 
     @GetMapping
     @RequestMapping("/search")
@@ -43,8 +42,11 @@ public class NewsController {
                          Model model) {
         model.addAttribute("newsListSearch", newsService.listAll(pageNumber, size, keyword));
         model.addAttribute("searchMessage", newsService.getNumberNews(keyword));
+        model.addAttribute("keyword",keyword);
         return "searchResult";
     }
+
+
 
     @GetMapping
     @RequestMapping("/news-{id}")
