@@ -1,6 +1,5 @@
 package com.example.webnews.controller;
 
-import com.example.webnews.repository.NewsRepository;
 import com.example.webnews.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
