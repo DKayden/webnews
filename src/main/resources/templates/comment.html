@@ -35,12 +35,12 @@
                 tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo.
                 Donec mattis, purus nec placerat bibendum, dui pede condimentum odio. <br/>
                 <h2>Search</h2>
-                <form th:action="@{/search}">
+                <form th:action="@{/search}" method="get">
                     <p>
                         Filter:
-                        <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required/>
+                        <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required />
                         &nbsp;
-                        <input type="submit" value="Search"/>
+                        <input type="submit" value="Search" />
                     </p>
                 </form>
                 <br/>
@@ -55,36 +55,38 @@
         </div>
         <div class="sd_left">
             <div class="text_padding">
-                <h1>Comments</h1>
-                <div th:each="comments:${commentsList.page}">
-                    <span th:text="${comments.user_name}"></span><br/>
-                    <span th:text="${comments.content}"></span><br/>
-                    <span><img th:src="@{/images/timeicon.gif}" alt="" th:text="${#dates.format(comments.timepost, 'HH:mm dd-MM-yyyy')}"/></span><br/>
+                <div class="text_padding">
+                    <h1>Comments</h1>
+                    <div th:each="comments:${commentsList.page}">
+                        <span th:text="${comments.user_name}"></span><br/>
+                        <span th:text="${comments.content}"></span><br/>
+                        <span><img th:src="@{/images/timeicon.gif}" alt="" th:text="${#dates.format(comments.timepost, 'HH:mm dd-MM-yyyy')}"/></span><br/>
+                    </div>
                 </div>
+                <br/>
+                <nav aria-label="Page navigation" class="paging">
+                    <ul class="pagination" th:if="${commentsList.page.totalPages > 1}">
+                        <li class="page-item" th:classappend="${!commentsList.paging.isPrevEnabled()? 'disabled' : ''}">
+                            <a class="page-link" th:href="@{'/' +${newsid}+'/comment'+ '/?pageNumber=' + ${commentsList.paging.pageNumber - 1}}"
+                               tabindex="-1">Previous</a>
+                        </li>
+                        <th:block th:each="item : ${commentsList.paging.getItems()}">
+                            <li class="page-item"
+                                th:classappend="${item.index == commentsList.paging.pageNumber? 'active' : ''}"
+                                th:if="${item.pageItemType.name() == 'PAGE'}">
+                                <a class="page-link" th:href="@{'/' +${newsid}+'/comment' + '/?pageNumber=' + ${item.index}}"
+                                   th:text="${item.index}"></a>
+                            </li>
+                            <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                                <a class="page-link" href="#">...</a>
+                            </li>
+                        </th:block>
+                        <li class="page-item" th:classappend="${!commentsList.paging.isNextEnabled()? 'disabled' : ''}">
+                            <a class="page-link" th:href="@{'/' + ${newsid} +'/comment' + '/?pageNumber=' + ${commentsList.paging.pageNumber + 1}}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <br/>
-            <nav aria-label="Page navigation" class="paging">
-                <ul class="pagination" th:if="${commentsList.page.totalPages > 1}">
-                    <li class="page-item" th:classappend="${!commentsList.paging.isPrevEnabled()? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{'/?pageNumber=' + ${commentsList.paging.pageNumber - 1}}"
-                           tabindex="-1">Previous</a>
-                    </li>
-                    <th:block th:each="item : ${commentsList.paging.getItems()}">
-                        <li class="page-item"
-                            th:classappend="${item.index == commentsList.paging.pageNumber? 'active' : ''}"
-                            th:if="${item.pageItemType.name() == 'PAGE'}">
-                            <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
-                               th:text="${item.index}"></a>
-                        </li>
-                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
-                            <a class="page-link" href="#">...</a>
-                        </li>
-                    </th:block>
-                    <li class="page-item" th:classappend="${!commentsList.paging.isNextEnabled()? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{'/?pageNumber=' + ${commentsList.paging.pageNumber + 1}}">Next</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
         <div class="footer" th:style="'background-image: url(/images/footer.jpg)'">
             <div class="padding"> Powered by <a href="http://snews.solucija.com"
@@ -100,9 +102,9 @@
 <div align=center>This template downloaded form <a href='http://all-free-download.com/free-website-templates/'>free
     website templates</a></div>
 
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!--<script th:src="@{/webjars/jquery/jquery.min.js}"></script>-->
+<!--<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>-->
+<!--<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>-->
 
 </body>
 </html>
