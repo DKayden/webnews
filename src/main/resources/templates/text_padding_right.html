@@ -1,0 +1,15 @@
+<div class="text_padding">
+    <h2>BinaryNews</h2>
+    sit amet consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi
+    tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo.
+    Donec mattis, purus nec placerat bibendum, dui pede condimentum odio. <br/>
+    <h2>Search</h2>
+    <form th:action="@{/search}" method="get">
+        <p>
+            Filter:
+            <input type="text" name="keyword" id="keyword" size="15" th:value="${keyword}" required />
+            &nbsp;
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+</div>
