@@ -3,6 +3,7 @@ package com.example.webnews.controller;
 import com.example.webnews.entity.Users;
 import com.example.webnews.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,6 @@ public class UserController {
         this.usersService = usersService;
     }
 
-//    @GetMapping("/register")
-//    public String showForm(Model model) {
-//        Users user = new Users();
-//        model.addAttribute("user", user);
-//
-//        return "register_form";
-//    }
 
     @RequestMapping("/users")
     public String viewHomePage(Model model) {
@@ -61,6 +55,22 @@ public class UserController {
     public String deleteUser(@PathVariable(name = "id") int id) {
         usersService.delete(id);
         return "redirect:/users";
+    }
+
+    @RequestMapping("/login")
+    public String showLoginPage(Model model) {
+        Users user = new Users();
+        model.addAttribute("user",user);
+        return "login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                        @RequestParam(value = "size", required = false, defaultValue = "1") int size,
+                        @Param("user_name") String user_name,
+                        Model model) {
+        model.addAttribute("login", usersService.login(pageNumber,size,user_name));
+        return "";
     }
 
 }

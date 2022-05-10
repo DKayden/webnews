@@ -16,6 +16,8 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
 
+    private Page<Users> userPage = null;
+
     @Autowired
     public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
@@ -35,6 +37,15 @@ public class UsersService {
 
     public void delete (int id) {
         usersRepository.deleteById(id);
+    }
+
+    public Paged<Users> login (int pageNumber, int size, String user_name) {
+        PageRequest request = PageRequest.of(pageNumber - 1, size);
+        if (user_name != null) {
+            userPage = usersRepository.login(user_name,request);
+            return new Paged<>(userPage, Paging.of(userPage.getTotalPages(),pageNumber,size));
+        }
+        return new Paged<>(null, Paging.of(userPage.getTotalPages(), pageNumber, size));
     }
 
 }
