@@ -37,12 +37,4 @@ public class UsersService {
         usersRepository.deleteById(id);
     }
 
-//    public Paged<Users> login(int pageNumber, int size, String user_name, String password) {
-//        PageRequest request = PageRequest.of(pageNumber - 1, size);
-//        if (user_name != null) {
-//            usersPage = usersRepository.login(user_name,password,request);
-//            return new Paged<>(usersPage, Paging.of(usersPage.getTotalPages(),pageNumber,size));
-//        }
-//        return new Paged<>(null,Paging.of(usersPage.getTotalPages(), pageNumber, size));
-//    }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -48,11 +49,12 @@ public class UserController {
         return "redirect:/users";
     }
 
-//    @RequestMapping("/edit/{id}")
-//    public
-//    @PostMapping("/register")
-//    public String submitForm(@ModelAttribute("user") Users user) {
-//        System.out.println(user);
-//        return "register_success";
-//    }
+    @RequestMapping("/edit/{id}")
+    public ModelAndView showEditUserPage(@PathVariable(name = "id") int id) {
+        ModelAndView mav = new ModelAndView("edit_user");
+        Users user = usersService.get(id);
+        mav.addObject("user",user);
+        return mav;
+    }
+
 }
