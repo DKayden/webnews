@@ -234,3 +234,7 @@ button {
 	padding: 5px;
 	margin: 10px;
 }
+table {
+	width: 100%;
+	text-align: center;
+}
