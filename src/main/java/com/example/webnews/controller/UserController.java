@@ -64,13 +64,20 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-                        @RequestParam(value = "size", required = false, defaultValue = "1") int size,
-                        @Param("user_name") String user_name,
-                        Model model) {
-        model.addAttribute("login", usersService.login(pageNumber,size,user_name));
-        return "";
+    @RequestMapping("/loginResult")
+    public String showLoginResultPage() {
+        return "loginResult";
     }
 
+    @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
+    public String checkLogin(@RequestParam String user_name,
+                             @RequestParam String password
+                             ) {
+        if (usersService.login(user_name,password)) {
+            return "redirect:/loginResult";
+        }
+        else {
+            return "redirect:login?error";
+        }
+    }
 }

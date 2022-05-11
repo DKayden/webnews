@@ -9,3 +9,4 @@
 *.TMP
 *.iml
 !pom.xml
+!application.properties

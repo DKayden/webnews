@@ -1,12 +1,9 @@
 package com.example.webnews.service;
 
 import com.example.webnews.entity.Users;
-import com.example.webnews.entity.paging.Paged;
-import com.example.webnews.entity.paging.Paging;
 import com.example.webnews.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +12,6 @@ import java.util.List;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-
-    private Page<Users> userPage = null;
 
     @Autowired
     public UsersService(UsersRepository usersRepository) {
@@ -27,7 +22,7 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public void save (Users user) {
+    public void save(Users user) {
         usersRepository.save(user);
     }
 
@@ -35,17 +30,16 @@ public class UsersService {
         return usersRepository.findById(id).get();
     }
 
-    public void delete (int id) {
+    public void delete(int id) {
         usersRepository.deleteById(id);
     }
 
-    public Paged<Users> login (int pageNumber, int size, String user_name) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size);
-        if (user_name != null) {
-            userPage = usersRepository.login(user_name,request);
-            return new Paged<>(userPage, Paging.of(userPage.getTotalPages(),pageNumber,size));
-        }
-        return new Paged<>(null, Paging.of(userPage.getTotalPages(), pageNumber, size));
-    }
 
+    public boolean login(String user_name, String password) {
+        Users user = usersRepository.checkUserName(user_name);
+        if (user.getUser_name().equals(user_name) && user.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
 }
