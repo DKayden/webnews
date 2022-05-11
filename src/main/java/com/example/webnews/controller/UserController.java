@@ -67,6 +67,7 @@ public class UserController {
     @RequestMapping("/loginResult")
     public String showLoginResultPage() {
         return "loginResult";
+
     }
 
     @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
@@ -76,7 +77,8 @@ public class UserController {
                              ) {
         if (usersService.login(user_name,password)) {
             model.addAttribute("user_name",usersService.getUserName(user_name));
-            return "loginResult";
+//            return "loginResult";
+            return "index";
         }
         else {
             return "redirect:login?error";
