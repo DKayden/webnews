@@ -7,8 +7,15 @@
 <body>
 <div class="preheader" th:style="'background-image: url(/images/preheader.jpg)'">
     <div class="padding">
-<!--        <a th:href="@{/register}">Sign up</a> |-->
+<!--        <div th:if="${user.anonymous}">-->
+<!--            <a th:href="@{/login}">Sign in</a>-->
+<!--        </div>-->
+<!--        <div th:unless="${user.anonymous}">-->
+<!--            Hello <span th:text="${user_name}"></span>-->
+<!--        </div>-->
         <a th:href="@{/login}">Sign in</a>
+        <!--        <a th:href="@{/register}">Sign up</a> |-->
+
     </div>
 </div>
 </body>

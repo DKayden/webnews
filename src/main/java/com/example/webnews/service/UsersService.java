@@ -34,11 +34,18 @@ public class UsersService {
         usersRepository.deleteById(id);
     }
 
+    public String getUserName(String user_name) {
+        Users user = usersRepository.checkUserName(user_name);
+        return user.getUser_name();
+    }
 
     public boolean login(String user_name, String password) {
         Users user = usersRepository.checkUserName(user_name);
-        if (user.getUser_name().equals(user_name) && user.getPassword().equals(password)) {
-            return true;
+        try {
+            if (user.getUser_name().equals(user_name) && user.getPassword().equals(password)) {
+                return true;
+            }
+        } catch (NullPointerException ignored) {
         }
         return false;
     }

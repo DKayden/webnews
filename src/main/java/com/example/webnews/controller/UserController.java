@@ -71,10 +71,12 @@ public class UserController {
 
     @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
     public String checkLogin(@RequestParam String user_name,
-                             @RequestParam String password
+                             @RequestParam String password,
+                             Model model
                              ) {
         if (usersService.login(user_name,password)) {
-            return "redirect:/loginResult";
+            model.addAttribute("user_name",usersService.getUserName(user_name));
+            return "loginResult";
         }
         else {
             return "redirect:login?error";

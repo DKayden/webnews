@@ -1,5 +1,6 @@
 package com.example.webnews.controller;
 
+import com.example.webnews.entity.News;
 import com.example.webnews.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -26,11 +27,26 @@ public class NewsController {
 
     @GetMapping
     @RequestMapping("/")
-    public String paginateIndex(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-                           @RequestParam(value = "size", required = false, defaultValue = "3") int size, Model model) {
+    public String index(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                        @RequestParam(value = "size", required = false, defaultValue = "3") int size, Model model) {
         model.addAttribute("newsList", newsService.getPage(pageNumber, size));
         return "index";
     }
+
+//    @GetMapping
+//    @RequestMapping("/")
+//    public String index(Model model) {
+//        News news = new News();
+//        model.addAttribute("news",news);
+//        return "index";
+//    }
+//
+//    @GetMapping
+//    public String allNews(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+//                          @RequestParam(value = "size", required = false, defaultValue = "3") int size, Model model) {
+//        model.addAttribute("newsList", newsService.getPage(pageNumber, size));
+//        return "/mainNews";
+//    }
 
 
     @GetMapping
