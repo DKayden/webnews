@@ -1,9 +1,9 @@
 package com.example.webnews.controller;
 
 import com.example.webnews.entity.Users;
+import com.example.webnews.service.NewsService;
 import com.example.webnews.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +16,12 @@ public class UserController {
 
     private final UsersService usersService;
 
+    private final NewsService newsService;
+
     @Autowired
-    public UserController(UsersService usersService) {
+    public UserController(UsersService usersService, NewsService newsService) {
         this.usersService = usersService;
+        this.newsService = newsService;
     }
 
 
@@ -70,15 +73,32 @@ public class UserController {
 
     }
 
+//    @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
+//    public String checkLogin(@RequestParam String user_name,
+//                             @RequestParam String password,
+//                             Model model
+//                             ) {
+//        if (usersService.login(user_name,password)) {
+//            model.addAttribute("user_name",usersService.getUserName(user_name));
+//            return "loginResult";
+////            return "redirect:/";
+//        }
+//        else {
+//            return "redirect:login?error";
+//        }
+//    }
     @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
     public String checkLogin(@RequestParam String user_name,
                              @RequestParam String password,
+                             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                             @RequestParam(value = "size", required = false, defaultValue = "3") int size,
                              Model model
                              ) {
         if (usersService.login(user_name,password)) {
             model.addAttribute("user_name",usersService.getUserName(user_name));
-//            return "loginResult";
-            return "index";
+            model.addAttribute("newsList", newsService.getPage(pageNumber, size));
+            return "loginResult";
+//            return "redirect:/";
         }
         else {
             return "redirect:login?error";

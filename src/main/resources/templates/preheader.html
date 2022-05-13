@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.thymeleaf.org ">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-<body>
 <div class="preheader" th:style="'background-image: url(/images/preheader.jpg)'">
     <div class="padding">
         <div th:if="${user_name}">
             Hello <span th:text="${user_name}"></span>
+<!--            <a th:href="@{/logout}">Sign out</a>-->
         </div>
         <div th:unless="${user_name}">
             <a th:href="@{/login}">Sign in</a>
         </div>
-<!--        <a th:href="@{/login}">Sign in</a>-->
-        <!--        <a th:href="@{/register}">Sign up</a> |-->
+
 
     </div>
 </div>
-</body>
-</html>

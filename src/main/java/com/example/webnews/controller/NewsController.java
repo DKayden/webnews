@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -33,21 +30,6 @@ public class NewsController {
         return "index";
     }
 
-//    @GetMapping
-//    @RequestMapping("/")
-//    public String index(Model model) {
-//        News news = new News();
-//        model.addAttribute("news",news);
-//        return "index";
-//    }
-//
-//    @GetMapping
-//    public String allNews(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-//                          @RequestParam(value = "size", required = false, defaultValue = "3") int size, Model model) {
-//        model.addAttribute("newsList", newsService.getPage(pageNumber, size));
-//        return "/mainNews";
-//    }
-
 
     @GetMapping
     @RequestMapping("/search")
@@ -55,7 +37,7 @@ public class NewsController {
                          @RequestParam(value = "size", required = false, defaultValue = "3") int size,
                          @Param("keyword") String keyword,
                          Model model) {
-        model.addAttribute("newsListSearch", newsService.listAll(pageNumber, size, keyword));
+        model.addAttribute("newsList", newsService.listAll(pageNumber, size, keyword));
         model.addAttribute("searchMessage", newsService.getNumberNews(keyword));
         model.addAttribute("keyword",keyword);
         return "searchResult";

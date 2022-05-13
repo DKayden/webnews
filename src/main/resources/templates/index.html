@@ -14,22 +14,16 @@
 </head>
 <body>
 <div class="content">
-  <div th:insert="/preheader"></div>
-  <div th:insert="/header"></div>
-  <div th:insert="/menu"></div>
+    <div th:insert="/preheader"></div>
+    <div th:insert="/header"></div>
+    <div th:insert="/menu"></div>
     <div class="main_content" th:style="'background-image: url(/images/bg.jpg)'">
         <div class="sd_right">
             <div th:insert="/text_padding_right"></div>
         </div>
         <div class="sd_left">
             <div class="text_padding">
-                <h1>MainNews</h1>
-                <div th:each="news:${newsList.page}">
-                    <a th:href="@{'/news-' + ${news.id}}" style="text-decoration: none;color: black;"><h2
-                            th:text="${news.title}" style="margin-bottom: unset;"></h2></a>
-                    <span th:text="${news.content}">Content</span>
-                </div>
-                <br/>
+                <div th:insert="/mainNews"></div>
                 <nav aria-label="Page navigation" class="paging">
                     <ul class="pagination" th:if="${newsList.page.totalPages > 1}">
                         <li class="page-item" th:classappend="${!newsList.paging.isPrevEnabled()? 'disabled' : ''}">
