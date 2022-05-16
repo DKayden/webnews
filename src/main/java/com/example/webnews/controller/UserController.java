@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -67,38 +70,35 @@ public class UserController {
         return "login";
     }
 
+//    @GetMapping("/login")
+//    public String loginPage(HttpSession session,String user_name) {
+//
+//        // store data in session
+//        session.setAttribute("user_name", usersService.getUserName(user_name));
+//
+//        return "login";
+//    }
+
     @RequestMapping("/loginResult")
     public String showLoginResultPage() {
         return "loginResult";
 
     }
 
-//    @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
-//    public String checkLogin(@RequestParam String user_name,
-//                             @RequestParam String password,
-//                             Model model
-//                             ) {
-//        if (usersService.login(user_name,password)) {
-//            model.addAttribute("user_name",usersService.getUserName(user_name));
-//            return "loginResult";
-////            return "redirect:/";
-//        }
-//        else {
-//            return "redirect:login?error";
-//        }
-//    }
     @RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
     public String checkLogin(@RequestParam String user_name,
                              @RequestParam String password,
                              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
                              @RequestParam(value = "size", required = false, defaultValue = "3") int size,
+                             HttpServletRequest request,
                              Model model
                              ) {
+        HttpSession session = request.getSession();
         if (usersService.login(user_name,password)) {
-            model.addAttribute("user_name",usersService.getUserName(user_name));
+            session.setAttribute("user_name",usersService.getUserName(user_name));
+            model.addAttribute("session",session);
             model.addAttribute("newsList", newsService.getPage(pageNumber, size));
             return "loginResult";
-//            return "redirect:/";
         }
         else {
             return "redirect:login?error";

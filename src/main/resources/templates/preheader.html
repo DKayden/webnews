@@ -1,11 +1,15 @@
 <div class="preheader" th:style="'background-image: url(/images/preheader.jpg)'">
 
     <div class="padding">
-        <div th:if="${user_name}">
-            Hello <span th:text="${user_name}"></span>
+        <div th:if="${session.user_name}">
+<!--        <div th:if="${session.containsKey('user_name')}" th:text="${session.user_name}">-->
+<!--        <div th:if="${#session.getAttribute('user_name')}">-->
+            Hello <span th:text="${session.user_name}"></span>
 <!--            <a th:href="@{/logout}">Sign out</a>-->
         </div>
-        <div th:unless="${user_name}">
+        <div th:unless="${session.user_name}">
+<!--        <div th:unless="${session.containsKey('user_name')}" th:text="${session.user_name}">-->
+<!--        <div th:unless="${#session.getAttribute('user_name')}">-->
             <a th:href="@{/login}">Sign in</a>
         </div>
 
