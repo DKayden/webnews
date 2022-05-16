@@ -23,8 +23,10 @@ public class CommentController {
     @RequestMapping("/{newsid}/comment")
     public String getListComments (@RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber,
                                    @RequestParam(value = "size",required = false,defaultValue = "5") int size,
-                                   @PathVariable("newsid") int newsid, Model model) {
+                                   @PathVariable("newsid") int newsid,
+                                   Model model) {
         model.addAttribute("commentsList",commentService.listComment(pageNumber,size,newsid));
+        model.addAttribute("user_name",commentService.getUserNameOfCommentByNewsId(newsid));
         model.addAttribute("newsid",newsid);
 
         return "comment";

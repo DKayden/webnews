@@ -23,11 +23,11 @@
             <div class="text_padding">
                 <div class="text_padding">
                     <h1>Comments</h1>
+                    <span th:text="${user_name}"></span><br/>
                     <div th:each="comments:${commentsList.page}">
                         <span th:text="${comments.content}"></span><br/>
                         <span><img th:src="@{/images/timeicon.gif}" alt="" th:text="${#dates.format(comments.timepost, 'HH:mm dd-MM-yyyy')}"/></span><br/>
                     </div>
-<!--                    <span th:utext="${user_name}"></span><br/>-->
                 </div>
                 <br/>
                 <nav aria-label="Page navigation" class="paging">

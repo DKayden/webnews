@@ -21,9 +21,9 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-//    public String getUserNameOfCommentByNewsId (int newsid) {
-//        return commentRepository.getUserNameOfCommentByNewsId(newsid);
-//    }
+    public String getUserNameOfCommentByNewsId (int newsid) {
+        return commentRepository.getUserNameOfCommentByNewsId(newsid);
+    }
 
     public Paged<Comments> listComment(int pageNumber, int size, int newsid) {
         PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
