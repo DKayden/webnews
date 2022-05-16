@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -98,7 +99,8 @@ public class UserController {
             session.setAttribute("user_name",usersService.getUserName(user_name));
             model.addAttribute("session",session);
             model.addAttribute("newsList", newsService.getPage(pageNumber, size));
-            return "loginResult";
+//            return "loginResult";
+            return "index";
         }
         else {
             return "redirect:login?error";

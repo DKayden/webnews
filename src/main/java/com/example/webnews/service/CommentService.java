@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentService {
 
@@ -25,9 +27,8 @@ public class CommentService {
         return commentRepository.getUserNameOfCommentByNewsId(newsid);
     }
 
-    public Paged<Comments> listComment(int pageNumber, int size, int newsid) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
-        Page<Comments> commentsPage = commentRepository.getCommentByNewsId(newsid,request);
-        return new Paged<>(commentsPage, Paging.of(commentsPage.getTotalPages(),pageNumber,size));
+    public List<Comments> listComment(int newsid) {
+        List<Comments> commentsList = commentRepository.getCommentByNewsId(newsid);
+        return commentsList;
     }
 }

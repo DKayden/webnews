@@ -1,11 +1,11 @@
 <div id="nav" th:style="'background-image: url(/images/menu.jpg)'">
-    <div th:if="${user_name}">
+    <div th:if="${session.user_name}">
         <ul>
             <li class="nav-item active"><a th:href="@{/}">Home</a></li>
             <li class="nav-item active"><a th:href="@{/users}">User</a></li>
         </ul>
     </div>
-    <div th:unless="${user_name}">
+    <div th:unless="${session.user_name}">
         <ul>
             <li class="nav-item active"><a th:href="@{/}">Home</a></li>
         </ul>

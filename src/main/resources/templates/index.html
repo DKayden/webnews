@@ -23,6 +23,8 @@
         </div>
         <div class="sd_left">
             <div class="text_padding">
+<!--                <span th:if="${session.user_name}" class="alert-success">Login Success</span>-->
+<!--                <h2 th:text="${message}"></h2>-->
                 <div th:insert="/mainNews"></div>
                 <nav aria-label="Page navigation" class="paging">
                     <ul class="pagination" th:if="${newsList.page.totalPages > 1}">

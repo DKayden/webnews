@@ -1,6 +1,6 @@
 package com.example.webnews.controller;
 
-import com.example.webnews.entity.News;
+import com.example.webnews.service.CommentService;
 import com.example.webnews.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -15,10 +15,13 @@ public class NewsController {
 
     private final NewsService newsService;
 
+    private final CommentService commentService;
+
 
     @Autowired
-    public NewsController(NewsService newsService) {
+    public NewsController(NewsService newsService, CommentService commentService) {
         this.newsService = newsService;
+        this.commentService = commentService;
     }
 
 
@@ -52,6 +55,8 @@ public class NewsController {
                              @PathVariable("id") int id,
                              Model model) {
         model.addAttribute("eachNewsList", newsService.eachNews(pageNumber, size, id));
+        model.addAttribute("commentsList",commentService.listComment(id));
+        model.addAttribute("user_name",commentService.getUserNameOfCommentByNewsId(id));
 
         return "eachNews";
     }
