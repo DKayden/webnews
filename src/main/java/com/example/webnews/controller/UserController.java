@@ -4,15 +4,16 @@ import com.example.webnews.entity.Users;
 import com.example.webnews.service.NewsService;
 import com.example.webnews.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -71,15 +72,6 @@ public class UserController {
         return "login";
     }
 
-//    @GetMapping("/login")
-//    public String loginPage(HttpSession session,String user_name) {
-//
-//        // store data in session
-//        session.setAttribute("user_name", usersService.getUserName(user_name));
-//
-//        return "login";
-//    }
-
     @RequestMapping("/loginResult")
     public String showLoginResultPage() {
         return "loginResult";
@@ -99,11 +91,17 @@ public class UserController {
             session.setAttribute("user_name",usersService.getUserName(user_name));
             model.addAttribute("session",session);
             model.addAttribute("newsList", newsService.getPage(pageNumber, size));
-//            return "loginResult";
             return "index";
         }
         else {
             return "redirect:login?error";
         }
+    }
+
+    @RequestMapping(value="/logout", method = RequestMethod.POST)
+    public String checkLogout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:login?logout";
     }
 }

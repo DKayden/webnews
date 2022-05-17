@@ -3,7 +3,10 @@
     <div class="padding">
         <div th:if="${session.user_name}">
             Hello <span th:text="${session.user_name}"></span>
-<!--            <a th:href="@{/logout}">Sign out</a>-->
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="logout">
+            </form>
+<!--           | <a th:href="@{/logout}">Sign out</a>-->
         </div>
         <div th:unless="${session.user_name}">
             <a th:href="@{/login}">Sign in</a>

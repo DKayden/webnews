@@ -14,8 +14,9 @@
 </head>
 <body>
 <div class="content">
-    <div th:insert="/preheader"></div>
+<!--    <div th:insert="/preheader"></div>-->
     <div th:insert="/header"></div>
+    <div th:insert="/menu"></div>
     <div class="main_content" th:style="'background-image: url(/images/bg.jpg)'">
         <div class="sd_right">
 <!--            <div th:insert="/text_padding_right"></div>-->
@@ -27,9 +28,9 @@
                 <div th:if="${param.error}" class="alert alert-danger">
                     Invalid username and password.
                 </div>
-<!--                <div th:if="${param.logout}" class="alert alert-success">-->
-<!--                    You have been logged out.-->
-<!--                </div>-->
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out.
+                </div>
                 <form th:action="@{/loginCheck}" method="post" th:object="${user}">
                     <table>
                         <tr>

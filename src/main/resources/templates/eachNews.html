@@ -23,8 +23,6 @@
                     <h2 th:text="${news.author}"></h2>
                     <h3 th:text="${#dates.format(news.timeupdate,'HH:mm dd-MM-yyyy')}"></h3>
                     <span th:text="${news.content}">Content</span>
-                    <!--                    <p class="date"><img th:src="@{/images/comment.gif}" alt=""/> <a class="date"-->
-                    <!--                                                                                     th:href="@{${news.id} + '/comment'}">Comments</a>-->
                 </div>
                 <hr/>
                 <h1>Comments</h1>
